@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Cleide
  */
-public class CursoController implements ICrud{
+public class CursoController{
 
     private Conexao conexao;
     private Connection connection;
@@ -30,10 +30,9 @@ public class CursoController implements ICrud{
     }
     
     
-    @Override
-    public boolean insert(Object entidade) {
+    public boolean insert(CursoModel entidade) {
         try {
-            CursoModel curso = (CursoModel) entidade;
+            CursoModel curso = entidade;
             
             this.sql = "INSERT INTO Curso " +
                 "(id,nome,descricao,limiteVagas) " +
@@ -55,10 +54,9 @@ public class CursoController implements ICrud{
         return false;
     }
 
-    @Override
-    public boolean update(Object entidade) {
+    public boolean update(CursoModel entidade) {
         try {
-            CursoModel curso = (CursoModel) entidade;
+            CursoModel curso = entidade;
             
             this.sql = "UPDATE Curso SET " +
                 "nome = ?, descricao = ?, limiteVagas = ? WHERE id = ? ";
@@ -79,10 +77,9 @@ public class CursoController implements ICrud{
         return false;
     }
 
-    @Override
-    public ArrayList<Object> getAll() {
+    public ArrayList<CursoModel> getAll() {
         try {
-            ArrayList<Object> listaCurso = new ArrayList<Object>();
+            ArrayList<CursoModel> listaCurso = new ArrayList<CursoModel>();
             this.sql = "SELECT * FROM Curso";
             
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
@@ -109,8 +106,7 @@ public class CursoController implements ICrud{
         return null;
     }
 
-    @Override
-    public Object getById(int id) {
+    public CursoModel getById(int id) {
         try {
             
             this.sql = "SELECT * FROM Curso WHERE id = ?";
@@ -138,7 +134,6 @@ public class CursoController implements ICrud{
         return null;
     }
 
-    @Override
     public boolean delete(int id) {
         try {
             this.sql = "DELETE FROM Curso WHERE id = ?";

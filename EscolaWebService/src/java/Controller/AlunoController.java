@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author Cleide
  */
-public class AlunoController implements ICrud{
+public class AlunoController{
 
     private Conexao conexao;
     private Connection connection;
@@ -32,10 +32,9 @@ public class AlunoController implements ICrud{
     }
     
     
-    @Override
-    public boolean insert(Object entidade) {
+    public boolean insert(AlunoModel entidade) {
         try {
-            AlunoModel aluno = (AlunoModel) entidade;
+            AlunoModel aluno = entidade;
             
             this.sql = "INSERT INTO Aluno " +
                 "(id,nome,cpf,idCurso) " +
@@ -57,10 +56,9 @@ public class AlunoController implements ICrud{
         return false;
     }
 
-    @Override
-    public boolean update(Object entidade) {
+    public boolean update(AlunoModel entidade) {
         try {
-            AlunoModel aluno = (AlunoModel) entidade;
+            AlunoModel aluno = entidade;
             
             this.sql = "UPDATE Aluno SET " +
                 "nome = ?, cpf = ?, idCurso = ? WHERE id = ? ";
@@ -81,11 +79,10 @@ public class AlunoController implements ICrud{
         return false;
     }
 
-    @Override
-    public ArrayList<Object> getAll() {
+    public ArrayList<AlunoModel> getAll() {
         try {
             this.cursoController = new CursoController();
-            ArrayList<Object> listaAluno = new ArrayList<Object>();
+            ArrayList<AlunoModel> listaAluno = new ArrayList<AlunoModel>();
             this.sql = "SELECT * FROM Aluno";
             
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
@@ -98,7 +95,7 @@ public class AlunoController implements ICrud{
                 aluno.setId(resultSet.getInt("id"));
                 aluno.setNome(resultSet.getString("nome"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setCurso((CursoModel)this.cursoController.getById(resultSet.getInt("idCurso")));
+                aluno.setCurso(this.cursoController.getById(resultSet.getInt("idCurso")));
                 
                 listaAluno.add(aluno);
             }
@@ -112,8 +109,7 @@ public class AlunoController implements ICrud{
         return null;
     }
 
-    @Override
-    public Object getById(int id) {
+    public AlunoModel getById(int id) {
         try {
             this.cursoController = new CursoController();
             this.sql = "SELECT * FROM Aluno WHERE id = ?";
@@ -129,7 +125,7 @@ public class AlunoController implements ICrud{
                 aluno.setId(resultSet.getInt("id"));
                 aluno.setNome(resultSet.getString("nome"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setCurso((CursoModel)cursoController.getById(resultSet.getInt("idCurso")));
+                aluno.setCurso(cursoController.getById(resultSet.getInt("idCurso")));
             }
             
             return aluno;
@@ -141,7 +137,6 @@ public class AlunoController implements ICrud{
         return null;
     }
 
-    @Override
     public boolean delete(int id) {
         try {
             this.sql = "DELETE FROM Aluno WHERE id = ?";
