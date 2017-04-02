@@ -82,9 +82,17 @@ public class CursoResource {
         curso.setNome("Angular 2");
         curso.setDescricao("Framework da google");
         curso.setLimiteVagas(20);
+         CursoModel curso2 = new CursoModel();
+        curso2.setId(2);
+        curso2.setNome("Laravel");
+        curso2.setDescricao("Framework PHP");
+        curso2.setLimiteVagas(20);
         //curso = this.cursoController.getById(id);
         Gson g = new Gson();
-        return g.toJson(curso);
+        if (id == 1) {
+            return g.toJson(curso);
+        }
+        return g.toJson(curso2);
     }
     
     @POST
