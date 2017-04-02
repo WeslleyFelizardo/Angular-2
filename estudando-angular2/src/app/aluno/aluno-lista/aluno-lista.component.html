@@ -1,0 +1,77 @@
+<br/>
+<!--<button (click)="teste()">teste</button>
+<button (click)="testeAluno()">testeAluno</button>-->
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h3>Lista de alunos da Felizardo Cursos</h3>
+      <!--<p>{{ this.alunos | json }}</p>-->
+    </div>
+  </div>
+</div>
+<br/>
+<table class="table">
+  <th>Id</th>
+  <th>Nome</th>
+  <th>CPF</th>
+  <th>Curso</th>
+  <th><a class="btn btn-info" [routerLink]="['/aluno/novo']" [queryParams]="{ope: 'novo'}">Novo</a></th>
+  <tr *ngFor="let aluno of alunoPaginados">
+    <td>{{ aluno.id }}</td>
+    <td>{{ aluno.nome }}</td>
+    <td>{{ aluno.cpf }}</td>
+    <td>{{ aluno.idCurso }}</td>
+    <td>
+      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" (click)="showAluno(aluno.id)">Visualizar</button>
+      <a [routerLink]="['/aluno', aluno.id, 'edit']" [queryParams]="{ope: 'editar'}"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+      <a [routerLink]="['/aluno']"><button type="button" (click)="onClickExcluir(aluno.id)" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Excluir</button></a>
+    </td>
+  </tr>  
+</table>
+
+<paginacao *ngIf="alunos.length > 0" 
+	[qtdPorPagina]="3" 
+	[totalRegistros]="alunos.length"
+	[qtdAdjacentes]="1"
+	(paginaSelecionada)="paginar($event)"> 
+</paginacao>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dados do aluno</h4>
+      </div>
+      <div class="modal-body">
+         <h4>Codigo -> <span class="label label-default">{{ alunoSelected.id }}</span></h4><br/>
+         <h4>Nome -> <span class="label label-default">{{ alunoSelected.nome }}</span></h4><br/>
+         <h4>Cpf -> <span class="label label-default">{{ alunoSelected.cpf }}</span></h4><br/>
+         <!--<h4>Curso -> <span class="label label-default">{{ returnNameCurso(alunoSelected.idCurso) }}</span></h4>-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade  bs-example-modal-sm" tabindex="-1" role="dialog"  aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Excluir aluno</h4>
+      </div>
+      <div class="modal-body">
+        <h5><p>Deseja excluir este aluno ?</p></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="fechar()" >Fechar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteAluno()">Confirmar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

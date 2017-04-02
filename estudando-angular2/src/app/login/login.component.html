@@ -1,0 +1,11 @@
+ <form class="form-inline">
+            <div class="form-group">
+              <label  class="sr-only" for="user">Email address</label>
+              <input [(ngModel)]="usuario.login" type="text" class="form-control input-sm" id="" name="user" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="password">Password</label>
+              <input [(ngModel)]="usuario.senha" type="password" class="form-control input-sm" id="" name="password" placeholder="Password">
+            </div>
+            <button class="btn btn-success " (click)="doLogin()">Sign in</button>
+</form>

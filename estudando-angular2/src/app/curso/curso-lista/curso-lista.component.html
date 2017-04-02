@@ -1,0 +1,78 @@
+<button (click)="a()">getCursos</button>
+<br/>
+<!--<h3> {{ this.cursos | json}}</h3>-->
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h3>Lista de cursos da Felizardo Cursos</h3>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+</div>
+<br/>
+<table class="table">
+  <th>Id</th>
+  <th>Nome</th>
+  <th>Descrição</th>
+  <th>Limite de Vagas</th>
+  <th>Qtd de alunos</th>
+  <th><a class="btn btn-info" [routerLink]="['/curso/novo']" [queryParams]="{ope: 'novo'}">Novo</a></th>
+  <tr *ngFor="let curso of cursos">
+    <td>{{ curso.id }}</td>
+    <td>{{ curso.nome }}</td>
+    <td>{{ curso.descricao }}</td>
+    <td>{{ curso.limiteVagas }}</td>
+    <td>2</td>
+    <td>
+      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" (click)="showCurso(curso.id)">Visualizar</button>
+      <a [routerLink]="['/curso', curso.id, 'edit']" [queryParams]="{ope: 'editar'}"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+      <a [routerLink]="['/curso']"><button type="button" (click)="onClickExcluir(curso.id)" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">Excluir</button></a>
+    </td>
+  </tr>  
+</table>
+
+<!--<paginacao *ngIf="cursos.length > 0" 
+	[qtdPorPagina]="qtdPorPagina" 
+	[totalRegistros]="totalRegistros"
+	[qtdAdjacentes]="1"
+	(paginaSelecionada)="paginar($event)"> 
+</paginacao>-->
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dados do curso</h4>
+      </div>
+      <div class="modal-body">
+         <h4>Codigo -> <span class="label label-default">{{ cursoSelected.id }}</span></h4><br/>
+         <h4>Nome -> <span class="label label-default">{{ cursoSelected.nome }}</span></h4><br/>
+         <h4>Descrição -> <span class="label label-default">{{ cursoSelected.descricao }}</span></h4><br/>
+         <h4>limite de vagas -> <span class="label label-default">{{ cursoSelected.limiteVagas }}</span></h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade  bs-example-modal-sm" tabindex="-1" role="dialog"  aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Excluir curso</h4>
+      </div>
+      <div class="modal-body">
+        <h5><p>Deseja excluir este curso ?</p></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteCurso()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

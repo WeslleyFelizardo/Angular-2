@@ -1,0 +1,37 @@
+<div class="text-center">
+<nav>
+  <ul class="pagination">
+    <li *ngIf="pagina!==1">
+      <button class="btn btn-primary" href="" aria-label="Primeiro"
+      	(click)="paginar(1)">
+        <span aria-hidden="true">&laquo;</span>
+      </button>
+    </li>
+    <li *ngIf="pagina!==1">
+      <button class="btn btn-primary" aria-label="Anterior"
+      	(click)="paginar(pagina-1)">
+        <span aria-hidden="true">&lsaquo;</span>
+      </button>
+    </li>
+    <li *ngFor="let i of paginas" 
+    	[ngClass]="{'active': i===pagina}">
+		<button class="btn btn-primary"  (click)="paginar(i)">{{ i }}</button>
+	</li>
+    <li *ngIf="exibirProximo">
+      <button class="btn btn-primary" aria-label="Próximo"
+      	(click)="paginar(pagina+1)">
+        <span aria-hidden="true">&rsaquo;</span>
+      </button>
+    </li>
+    <li *ngIf="exibirProximo">
+      <button class="btn btn-primary" aria-label="Último"
+      	(click)="paginar(qtdPaginas)">
+        <span aria-hidden="true">&raquo;</span>
+      </button>
+    </li>
+  </ul>
+  <p>Total de registros: <strong>{{ totalRegistros }}</strong>, 
+  	 pág. <strong>{{ pagina }}</strong> 
+  	 de <strong>{{ qtdPaginas }}</strong>.</p>
+</nav>
+</div>
