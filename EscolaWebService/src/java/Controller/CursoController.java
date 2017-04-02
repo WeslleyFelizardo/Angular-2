@@ -60,16 +60,17 @@ public class CursoController{
             
             this.sql = "UPDATE Curso SET " +
                 "nome = ?, descricao = ?, limiteVagas = ? WHERE id = ? ";
-            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
+            //PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setString(0, curso.getNome());
-            stmt.setString(1, curso.getDescricao());
-            stmt.setInt(2, curso.getLimiteVagas());
-            stmt.setInt(3, curso.getId());
+            //stmt.setString(0, curso.getNome());
+            //stmt.setString(1, curso.getDescricao());
+            //stmt.setInt(2, curso.getLimiteVagas());
+            //stmt.setInt(3, curso.getId());
             
-            if(stmt.executeUpdate() == 1){
+            //if(stmt.executeUpdate() == 1){
                 return true;
-            }
+            //}
+            
         } catch (Exception ex) {
         }finally{
             this.conexao.closeConnection();
@@ -109,21 +110,21 @@ public class CursoController{
     public CursoModel getById(int id) {
         try {
             
-            this.sql = "SELECT * FROM Curso WHERE id = ?";
-            
-            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
-            
-            stmt.setInt(0, id);
-            
-            ResultSet resultSet = stmt.executeQuery();
+//            this.sql = "SELECT * FROM Curso WHERE id = ?";
+//            
+//            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
+//            
+//            stmt.setInt(0, id);
+//            
+//            ResultSet resultSet = stmt.executeQuery();
             CursoModel curso = new CursoModel();
             
-            if (resultSet.isFirst()) {
-                curso.setId(resultSet.getInt("id"));
-                curso.setNome(resultSet.getString("nome"));
-                curso.setDescricao(resultSet.getString("descricao"));
-                curso.setLimiteVagas(resultSet.getInt("limiteVagas"));
-            }
+            //if (resultSet.isFirst()) {
+                curso.setId(2);
+                curso.setNome("Angula 2");
+                curso.setDescricao("descricao");
+                curso.setLimiteVagas(2);
+            //}
             
             return curso;
             

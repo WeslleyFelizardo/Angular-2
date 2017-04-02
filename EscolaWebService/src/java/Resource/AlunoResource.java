@@ -6,6 +6,7 @@
 package Resource;
 
 import Controller.AlunoController;
+import Controller.CursoController;
 import Model.AlunoModel;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class AlunoResource {
     @Context
     private UriInfo context;
     private AlunoController alunoController;
-
+    private CursoController cursoController;
     /**
      * Creates a new instance of CursoResource
      */
@@ -50,7 +51,27 @@ public class AlunoResource {
         //TODO return proper representation object    
         ArrayList<AlunoModel> lista = new ArrayList<AlunoModel>();
         this.alunoController = new AlunoController();
-        lista = this.alunoController.getAll();
+        this.cursoController = new CursoController();
+        //lista = this.alunoController.getAll();
+        AlunoModel aluno1 = new AlunoModel();
+        aluno1.setId(1);
+        aluno1.setNome("Weslley");
+        aluno1.setCpf("222.222.222-00");
+        aluno1.setCurso(this.cursoController.getById(2));
+//        AlunoModel aluno2 = new AlunoModel();
+//        aluno2.setId(2);
+//        aluno2.setNome("Lucas");
+//        aluno2.setCpf("222.222.222-00");
+//        aluno2.setId(this.cursoController.getById(2).getId());
+//        AlunoModel aluno3 = new AlunoModel();
+//        aluno3.setId(3);
+//        aluno3.setNome("Cleide");
+//        aluno3.setCpf("222.222.222-00");
+//        aluno3.setIdCurso(this.cursoController.getById(2).getId());
+        
+        lista.add(aluno1);
+        //lista.add(aluno2);
+        //lista.add(aluno3);
         Gson g = new Gson();
         return g.toJson(lista);
     }
@@ -69,6 +90,7 @@ public class AlunoResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public String insertAluno(String aluno) {
        Gson g = new Gson();
        AlunoModel alunoNovo = new AlunoModel();
