@@ -97,11 +97,11 @@ public class CORSFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        System.out.println("dsdsdsd");
+        //System.out.println("dsdsdsd");
         ((HttpServletResponse)response).addHeader("Access-Control-Allow-Origin", "*");
         ((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "X-Request-With, Content-Type, Accept");
-        ((HttpServletResponse)response).addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        ((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "Content-Type, x-xsrf-token");
+        ((HttpServletResponse)response).addHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, OPTIONS");
+        //((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "Content-Type, x-xsrf-token");
         
         chain.doFilter(request, response);
     }
