@@ -12,13 +12,15 @@ export class HttpUtilService {
 	}
 
 	headers() {
-		let headersParams = { 'Content-Type': 'application/json' };
+		let headersParams = { 'Content-Type': 'application/json'};
 		// if (localStorage['token']) {
 		// 	headersParams['Authorization'] = localStorage['token'];
 		// }
 		let headers = new Headers(headersParams);
     	let options = new RequestOptions({ headers: headers });
 		//alert('logado');
+		console.log(options);
+		console.log(headers);
     	return options;
 	}
 
