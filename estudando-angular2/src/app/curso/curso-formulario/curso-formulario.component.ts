@@ -83,7 +83,7 @@ export class CursoFormularioComponent implements OnInit {
       this.curso.descricao = this.cursoForm.controls['descricao'].value;
       this.curso.limiteVagas = parseInt(this.cursoForm.controls['limiteDeVagas'].value);
 
-      this.cursoService.insertCurso(this.curso).subscribe(data => this.route.navigate(['/curso']),
+      this.cursoService.insertCurso(this.curso).subscribe(data =>{ this.route.navigate(['/curso']); console.log(data);},
                                                           error => console.log('erro'));
   }
 
@@ -94,9 +94,10 @@ export class CursoFormularioComponent implements OnInit {
       this.curso.descricao = this.cursoForm.controls['descricao'].value;
       this.curso.limiteVagas = this.cursoForm.controls['limiteDeVagas'].value;
       
-      this.cursoService.updateCurso(this.curso).subscribe(data => { if(data){
+      this.cursoService.updateCurso(this.curso).subscribe(data => { 
+                                                                       console.log(data);
                                                                        this.route.navigate(['/curso']);   
-                                                                  }
+                                                                  
                                                                 },
                                                           error => console.log(error));
     //console.log(this.curso);

@@ -19,8 +19,8 @@ export class HttpUtilService {
 		let headers = new Headers(headersParams);
     	let options = new RequestOptions({ headers: headers });
 		//alert('logado');
-		console.log(options);
-		console.log(headers);
+		//console.log(options);
+		//console.log(headers);
     	return options;
 	}
 
