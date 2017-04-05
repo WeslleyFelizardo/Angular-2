@@ -17,11 +17,11 @@ import java.sql.DriverManager;
  */
 public class Conexao {
     
-    private String ip = "localhost";
+    private String ip = "localhost:3306";
     private String driver = "jdbc:mysql://";
-    private String banco = "";
+    private String banco = "db_escola";
     private String usuario = "root";
-    private String senha = "123";
+    private String senha = "weslley10";
     private String url = driver + ip + "/" + banco;
     public static Connection con;
 
@@ -40,8 +40,11 @@ public class Conexao {
     public Connection getConnection(){
         try {
             con = DriverManager.getConnection(url, usuario, senha);
+            System.out.println("Conection");
             return con;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("No Conection");
         }
         return null;
         

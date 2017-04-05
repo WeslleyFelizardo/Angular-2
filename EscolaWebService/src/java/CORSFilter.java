@@ -102,7 +102,7 @@ public class CORSFilter implements Filter {
         ((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "X-Request-With, Content-Type, Accept");
         ((HttpServletResponse)response).addHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET");
         //((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "Content-Type, x-xsrf-token");
-        
+        Controller.Conexao.getInstance().getConnection();
         chain.doFilter(request, response);
     }
 

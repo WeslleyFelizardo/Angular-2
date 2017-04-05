@@ -17,6 +17,7 @@ export class CursoFormularioComponent implements OnInit {
   private id: number = 0;
   private insert: boolean = true;
   cursoForm: FormGroup;
+  
 
   constructor(private activatedRoute: ActivatedRoute, private cursoService: CursoService, private route: Router, 
   private fb: FormBuilder

@@ -19,6 +19,7 @@ export class AlunoFormularioComponent implements OnInit {
   private insert: boolean = true;
   private cursos: Curso[] = [];
   private alunoUpdate: Aluno;
+  selectedValue = "-1";
 
     constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private alunoService: AlunoService , private route: Router
     , private fb: FormBuilder) {
@@ -39,7 +40,8 @@ export class AlunoFormularioComponent implements OnInit {
         this.alunoForm.controls['codigo'].setValue(aluno.id);
         this.alunoForm.controls['nome'].setValue(aluno.nome);
         this.alunoForm.controls['cpf'].setValue(aluno.cpf);
-        this.alunoForm.controls['curso'].setValue(aluno['Curso'].descricao);
+       // this.alunoForm.controls['curso'].setValue(aluno['Curso'].descricao);
+       this.selectedValue = aluno['Curso'].id;
   }
 
    ngOnInit() {
@@ -85,10 +87,9 @@ export class AlunoFormularioComponent implements OnInit {
     let cpf = this.alunoForm.controls['cpf'].value;
     let cursoUpdate: Curso;
     cursoUpdate = this.cursos.find(course => course.id == this.alunoForm.controls['curso'].value);
-    //console.log(cursoUpdate);
-    //this.cursoService.getById(curso).subscribe(data => console.log(data));
+    
     this.alunoUpdate = new Aluno(id, nome, cpf, cursoUpdate);
-    console.log(JSON.stringify(this.alunoUpdate ));
+    
     this.alunoService.updateAluno(this.alunoUpdate).subscribe(data => this.route.navigate(['/aluno']),
                                                               error => console.log(error));
   }
