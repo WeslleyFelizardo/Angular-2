@@ -18,7 +18,7 @@
   
   <div class="form-group" [ngClass]="{'has-danger': alunoForm.controls.curso.errors && alunoForm.controls.curso.touched}">
     <select class="form-control" formControlName="curso" name="cursos" id="curso">
-      <option [value]="0" selected="selected">Selecione o curso...</option>
+      <option [value]="0" selected>Selecione o curso...</option>
       <option *ngFor="let curso of cursos" [value]="curso.id"> {{ curso.nome }} </option>
     </select>
   </div>

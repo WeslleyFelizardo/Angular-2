@@ -16,11 +16,11 @@
   <th>CPF</th>
   <th>Curso</th>
   <th><a class="btn btn-info" [routerLink]="['/aluno/novo']" [queryParams]="{ope: 'novo'}">Novo</a></th>
-  <tr *ngFor="let aluno of alunoPaginados">
+  <tr *ngFor="let aluno of alunos">
     <td>{{ aluno.id }}</td>
     <td>{{ aluno.nome }}</td>
     <td>{{ aluno.cpf }}</td>
-    <td>{{ aluno.idCurso }}</td>
+    <td>{{ aluno.Curso.nome }}</td>
     <td>
       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" (click)="showAluno(aluno.id)">Visualizar</button>
       <a [routerLink]="['/aluno', aluno.id, 'edit']" [queryParams]="{ope: 'editar'}"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
@@ -29,12 +29,12 @@
   </tr>  
 </table>
 
-<paginacao *ngIf="alunos.length > 0" 
+<!--<paginacao *ngIf="alunos.length > 0" 
 	[qtdPorPagina]="3" 
 	[totalRegistros]="alunos.length"
 	[qtdAdjacentes]="1"
 	(paginaSelecionada)="paginar($event)"> 
-</paginacao>
+</paginacao>-->
 
 
 <!-- Modal -->
@@ -49,7 +49,7 @@
          <h4>Codigo -> <span class="label label-default">{{ alunoSelected.id }}</span></h4><br/>
          <h4>Nome -> <span class="label label-default">{{ alunoSelected.nome }}</span></h4><br/>
          <h4>Cpf -> <span class="label label-default">{{ alunoSelected.cpf }}</span></h4><br/>
-         <!--<h4>Curso -> <span class="label label-default">{{ returnNameCurso(alunoSelected.idCurso) }}</span></h4>-->
+         <h4>Curso -> <span class="label label-default">{{ cursoAlunoSelected }}</span></h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

@@ -17,7 +17,7 @@ export class AlunoFormularioComponent implements OnInit {
   private alunoForm: FormGroup;
   private id: number;
   private insert: boolean = true;
-  private cursos: any[] = [];
+  private cursos: Curso[] = [];
 
     constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private alunoService: AlunoService , private route: Router
     , private fb: FormBuilder) {
@@ -34,18 +34,21 @@ export class AlunoFormularioComponent implements OnInit {
     });
    }
 
+  showUpdate(aluno: Aluno){
+        this.alunoForm.controls['codigo'].setValue(aluno.id);
+        this.alunoForm.controls['nome'].setValue(aluno.nome);
+        this.alunoForm.controls['cpf'].setValue(aluno.cpf);
+        this.alunoForm.controls['curso'].setValue(aluno['Curso'].descricao);
+  }
+
    ngOnInit() {
     
     this.activatedRoute.params.subscribe(
       (params: any) => {
         if(params['id'] != null){
         this.id = params['id'];
-        this.aluno; //this.alunoService.getAlunoById(this.id);
-        //this.alunoAtual = this.id;
-        this.alunoForm.controls['codigo'].setValue(this.aluno.id);
-        this.alunoForm.controls['nome'].setValue(this.aluno.nome);
-        this.alunoForm.controls['cpf'].setValue(this.aluno.cpf);
-        this.alunoForm.controls['curso'].setValue(this.aluno.curso.id);
+        this.alunoService.getAlunoById(this.id).subscribe(data => this.showUpdate(data));
+      
         }
       }
     );
@@ -61,6 +64,8 @@ export class AlunoFormularioComponent implements OnInit {
         }
       }
     );
+
+    this.cursoService.getAll().subscribe(data => this.cursos = data);
   }
 
   insertAluno(){

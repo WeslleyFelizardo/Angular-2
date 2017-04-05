@@ -45,39 +45,21 @@ export class AlunoService {
             .catch(this.utilHttp.processarErros);
   }
 
-  getAlunoById(id: number){
-    this.alunos;
-
-    for (let index = 0; index < this.alunos.length; index++) {
-        if(this.alunos[index].id == id){
-          return this.alunos[index];
-        } 
-    }
-    return {};
+  getAlunoById(id: number): Observable<Aluno>{
+      return this.http.get(this.urlResource + '/' + id, this.utilHttp.headers())
+             .map(this.utilHttp.extrairDados)
+             .catch(this.utilHttp.processarErros);
   }
 
   deleteAluno(id: any){
-    for (let index = 0; index < this.alunos.length; index++) {
-        if(this.alunos[index].id == id){
-          this.alunos.splice(index, 1);
-          return true;
-        } 
-    }
-    return false;
+  
   }
   
   insertAluno(aluno: any){
-    //var alunos: any[] = this.getAlunos();
-    //alunos.push(aluno);
-    return true;
+   
   }
 
-    updateAluno(aluno: any){
-      var alunoUpdate = this.getAlunoById(aluno.id);
-      if(alunoUpdate != {}){
-        alunoUpdate = aluno;
-        return true;
-      }
-      return false;
-    }
+  updateAluno(aluno: any){
+   
+  }
 }

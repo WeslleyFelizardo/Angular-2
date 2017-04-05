@@ -19,7 +19,7 @@ export class CursoListaComponent implements OnInit {
   idForDelete: number;
   totalRegistros: number = 2;
   //delete: boolean = false;
-  constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private router: Router, ) {
+  constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private router: Router) {
     
    }
 
@@ -30,10 +30,6 @@ export class CursoListaComponent implements OnInit {
      //this.totalRegistros = 2;//this.cursos.length;
      //this.cursosPaginados = ;
      //console.log('listando'); 
-  }
-
-  a(){
-    console.log(this.cursos);
   }
 
   ngOnInit() { 

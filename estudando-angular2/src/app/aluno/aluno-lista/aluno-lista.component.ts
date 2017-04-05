@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CursoService } from './../../curso/curso.service';
 import { AlunoService } from './../aluno.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { Aluno } from '../Aluno';
+import { Aluno } from './../aluno';
 
 @Component({
   selector: 'aluno-lista',
@@ -14,36 +14,41 @@ export class AlunoListaComponent implements OnInit {
 
   cursos: Curso[] = [];
   qtdPorPagina: number = 3;
-  alunoPaginados: any;
+  alunoPaginados: Aluno[];
   alunos: Aluno[] = [];
   showButtonUpdate = new EventEmitter<boolean>();
-  alunoSelected: any = {};
+  alunoSelected: Aluno = new Aluno();
   idForDelete: number;
   totalRegistros: number = 0;
+  cursoAlunoSelected: String;
 
-  constructor(private cursoService: CursoService, private alunoService: AlunoService, private activatedRoute: ActivatedRoute, private router: Router, ) {
-       
+  constructor(private cursoService: CursoService, private alunoService: AlunoService, private activatedRoute: ActivatedRoute, private router: Router) {
+       //this.alunoSelected = new Aluno();
    }
 
-    getAllCursos(){
-      this.cursoService.getAll().subscribe(data => this.cursos = data);
+  getAllCursos(){
+      this.cursoService.getAll().subscribe(data =>  console.log(data),
+                                           error =>  console.log(error));
    }
+
+  //  a(data){
+  //     this.alunos = data;
+  //  }
 
   loadingAlunos(){
-    this.alunoService.getAll().subscribe( data =>
-      this.alunos = data,
-    error => console.log(error)); 
-    //this.getAllAlunos();
-    //this.alunos = this.alunoService.getAll();
-    this.totalRegistros = this.alunos.length;
-    this.paginar(1);
+   this.alunoService.getAll().subscribe(data => this.alunos  = data,
+   error => console.log(error)); 
+   //this.getAllCursos();
+   
+   // this.totalRegistros = this.alunos.length;
+    //this.paginar(1);
     
     //this.alunoPaginados = this.alunos;
   }
 
   ngOnInit() {
     this.loadingAlunos();
-    
+   
   }
 
   // testeAluno(){
@@ -76,7 +81,11 @@ export class AlunoListaComponent implements OnInit {
    }
 
    showAluno($event){
-     this.alunoSelected = this.alunoService.getAlunoById(parseInt($event));
+     this.alunoService.getAlunoById(parseInt($event)).subscribe(data => {
+                                                                        this.alunoSelected = data;
+                                                                        this.cursoAlunoSelected = this.alunoSelected['Curso'].nome;
+                                                                        }, 
+                                                                        error => console.log('dsds'));
      //console.log($event);
    }
 }
