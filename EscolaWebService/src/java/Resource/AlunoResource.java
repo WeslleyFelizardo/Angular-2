@@ -8,6 +8,7 @@ package Resource;
 import Controller.AlunoController;
 import Controller.CursoController;
 import Model.AlunoModel;
+import Model.CursoModel;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ws.rs.core.Context;
@@ -81,11 +82,21 @@ public class AlunoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAlunoById(@PathParam("id") Integer id) {
         //CursoModel curso = (CursoModel)cursoController.getById(id);
-        this.alunoController = new AlunoController();
-        AlunoModel aluno = new AlunoModel();
-        aluno = this.alunoController.getById(id);
+        //this.alunoController = new AlunoController();
+         CursoModel curso = new CursoModel();
+ 
+        curso.setId(1);
+        curso.setNome("Angular 2");
+        curso.setDescricao("Framework da google");
+        curso.setLimiteVagas(20);
+        AlunoModel aluno1 = new AlunoModel();
+        aluno1.setId(1);
+        aluno1.setNome("Weslley");
+        aluno1.setCpf("222.222.222-00");
+        aluno1.setCurso(curso);
+        //aluno = this.alunoController.getById(id);
         Gson g = new Gson();
-        return g.toJson(aluno);
+        return g.toJson(aluno1);
     }
     
     @POST
@@ -102,16 +113,16 @@ public class AlunoResource {
        return alunoNovo.getNome();
     }
     
-    @Path("{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String updateAluno(@PathParam("id") Integer id, String aluno) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateAluno(String aluno) {
        //cursoController.update(curso);
-//       Gson g = new Gson();
+         Gson g = new Gson();
 //       CursoModel cursoNovo = new CursoModel();
 //       cursoNovo = g.fromJson(curso, CursoModel.class);
 //       this.cursoController = new CursoController();
-       return "Atualizado" + 2 + aluno;
+       return g.toJson("Update with success");
     }
     
     @Path("{id}")

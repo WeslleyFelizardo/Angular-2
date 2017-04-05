@@ -13,11 +13,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlunoFormularioComponent implements OnInit {
 
-  private aluno = new Aluno();
+  private aluno;
   private alunoForm: FormGroup;
   private id: number;
   private insert: boolean = true;
   private cursos: Curso[] = [];
+  private alunoUpdate: Aluno;
 
     constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private alunoService: AlunoService , private route: Router
     , private fb: FormBuilder) {
@@ -69,25 +70,12 @@ export class AlunoFormularioComponent implements OnInit {
   }
 
   insertAluno(){
-    
-    this.aluno.id = parseInt(this.alunoForm.controls['codigo'].value);
-    this.aluno.nome = this.alunoForm.controls['nome'].value;
-    this.aluno.cpf = this.alunoForm.controls['cpf'].value;
-    this.aluno.curso = this.alunoForm.controls['curso'].value;
+    let newCurso = this.cursos.find(course => course.id == this.alunoForm.controls['curso'].value);
+    //console.log(newCurso);
+    this.aluno = new Aluno(parseInt(this.alunoForm.controls['codigo'].value),  this.alunoForm.controls['nome'].value,  this.alunoForm.controls['cpf'].value,
+    newCurso); 
 
-    let curso: any;//this.cursoService.getCursoById(this.aluno.idCurso);
-    
-  //   if(this.cursoService.getCountByCurso(curso.id) < curso.limiteVagas)
-  //   {
-  //      if(this.alunoService.insertAluno(this.aluno)){
-  //        alert('aluno cadastrado com sucesso');
-  //        this.route.navigate(['/aluno']);
-  //        this.insert = true;
-  //     }
-  //  }
-  //   else{
-  //     alert('O curso ' + curso.nome + ' não tem vagas disponivel');
-  //   }
+    console.log(this.aluno);
    }
 
   updateAluno(){
@@ -95,23 +83,14 @@ export class AlunoFormularioComponent implements OnInit {
     let id = parseInt(this.alunoForm.controls['codigo'].value);
     let nome = this.alunoForm.controls['nome'].value;
     let cpf = this.alunoForm.controls['cpf'].value;
-    let idCurso = this.alunoForm.controls['curso'].value;
-
-    let curso: Curso;//this.cursoService.getCursoById(idCurso);
-    //alert(this.aluno.idCurso + idCurso);  
-    // if(this.cursoService.getCountByCurso(curso.id) < curso.limiteVagas || this.aluno.idCurso == idCurso)
-    // {
-    //      this.aluno.id = id;
-    //      this.aluno.nome = nome;
-    //      this.aluno.cpf = cpf;
-    //      this.aluno.idCurso = idCurso;
-    //     if(this.alunoService.updateAluno(this.aluno)){
-    //       alert('aluno atualizado com sucesso');
-    //       this.route.navigate(['/aluno']);
-    // }
-    // }else{
-    //      alert('O curso ' + curso.nome + ' não tem vagas disponivel');
-    // }
+    let cursoUpdate: Curso;
+    cursoUpdate = this.cursos.find(course => course.id == this.alunoForm.controls['curso'].value);
+    //console.log(cursoUpdate);
+    //this.cursoService.getById(curso).subscribe(data => console.log(data));
+    this.alunoUpdate = new Aluno(id, nome, cpf, cursoUpdate);
+    console.log(JSON.stringify(this.alunoUpdate ));
+    this.alunoService.updateAluno(this.alunoUpdate).subscribe(data => this.route.navigate(['/aluno']),
+                                                              error => console.log(error));
   }
 
   voltar(){

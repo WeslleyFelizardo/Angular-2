@@ -106,7 +106,7 @@ public class CursoResource {
 //       if(this.cursoController.insert(cursoNovo)){
 //           return true;
 //       }
-       return g.toJson("Cadastrado com sucesso");
+       return g.toJson("Cadastrado com sucesso  ");
     }
     
     //@Path("{id}")
@@ -119,7 +119,7 @@ public class CursoResource {
 //       CursoModel cursoNovo = new CursoModel();
 //       cursoNovo = g.fromJson(curso, CursoModel.class);
 //       this.cursoController = new CursoController();
-       return g.toJson("Atualizado com sucesso");
+       return g.toJson("Update with success");
     }
     
     @Path("d/{id}")

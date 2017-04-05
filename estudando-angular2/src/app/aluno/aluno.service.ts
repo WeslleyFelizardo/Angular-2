@@ -59,7 +59,10 @@ export class AlunoService {
    
   }
 
-  updateAluno(aluno: any){
-   
+  updateAluno(aluno: Aluno): Observable<String>{
+      let params = JSON.stringify(aluno);
+      return this.http.put(this.urlResource, params, this.utilHttp.headers())
+             .map(this.utilHttp.extrairDados)
+             .catch(this.utilHttp.processarErros);
   }
 }
