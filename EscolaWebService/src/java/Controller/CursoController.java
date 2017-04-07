@@ -1,5 +1,6 @@
 package Controller;
 
+//import javaapplication11.Conexao;
 import Model.CursoModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,14 +25,18 @@ public class CursoController{
     private String sql;
     
     public CursoController() {
+     
+    }
+    
+     private void startConnection(){
         this.conexao = Conexao.getInstance();
         this.connection = this.conexao.getConnection();
         this.sql = "";
     }
     
-    
     public boolean insert(CursoModel entidade) {
         try {
+            this.startConnection();
             CursoModel curso = entidade;
             
             this.sql = "INSERT INTO Curso " +
@@ -39,10 +44,10 @@ public class CursoController{
                 "values (?,?,?,?)";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setInt(0, curso.getId());
-            stmt.setString(1, curso.getNome());
-            stmt.setString(2, curso.getDescricao());
-            stmt.setInt(3, curso.getLimiteVagas());
+            stmt.setInt(1, curso.getId());
+            stmt.setString(2, curso.getNome());
+            stmt.setString(3, curso.getDescricao());
+            stmt.setInt(4, curso.getLimiteVagas());
             
             if(stmt.execute()){
                 return true;
@@ -56,20 +61,21 @@ public class CursoController{
 
     public boolean update(CursoModel entidade) {
         try {
+            this.startConnection();
             CursoModel curso = entidade;
             
             this.sql = "UPDATE Curso SET " +
                 "nome = ?, descricao = ?, limiteVagas = ? WHERE id = ? ";
-            //PreparedStatement stmt = this.connection.prepareStatement(this.sql);
+            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            //stmt.setString(0, curso.getNome());
-            //stmt.setString(1, curso.getDescricao());
-            //stmt.setInt(2, curso.getLimiteVagas());
-            //stmt.setInt(3, curso.getId());
+            stmt.setString(1, curso.getNome());
+            stmt.setString(2, curso.getDescricao());
+            stmt.setInt(3, curso.getLimiteVagas());
+            stmt.setInt(4, curso.getId());
             
-            //if(stmt.executeUpdate() == 1){
+            if(stmt.executeUpdate() == 1){
                 return true;
-            //}
+            }
             
         } catch (Exception ex) {
         }finally{
@@ -80,6 +86,7 @@ public class CursoController{
 
     public ArrayList<CursoModel> getAll() {
         try {
+            this.startConnection();
             ArrayList<CursoModel> listaCurso = new ArrayList<CursoModel>();
             this.sql = "SELECT * FROM Curso";
             
@@ -109,22 +116,23 @@ public class CursoController{
 
     public CursoModel getById(int id) {
         try {
+            this.startConnection();
+            //System.out.println(id);
+            this.sql = "SELECT * FROM Curso WHERE id = ?";
             
-//            this.sql = "SELECT * FROM Curso WHERE id = ?";
-//            
-//            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
-//            
-//            stmt.setInt(0, id);
-//            
-//            ResultSet resultSet = stmt.executeQuery();
+            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
+            
+            stmt.setInt(1, id);
+            
+            ResultSet resultSet = stmt.executeQuery();
             CursoModel curso = new CursoModel();
             
-            //if (resultSet.isFirst()) {
-                curso.setId(2);
-                curso.setNome("Angula 2");
-                curso.setDescricao("descricao");
-                curso.setLimiteVagas(2);
-            //}
+            while (resultSet.next()) {
+                curso.setId(resultSet.getInt("id"));
+                curso.setNome(resultSet.getString("nome"));
+                curso.setDescricao(resultSet.getString("descricao"));
+                curso.setLimiteVagas(resultSet.getInt("limiteVagas"));
+            }
             
             return curso;
             
@@ -137,6 +145,7 @@ public class CursoController{
 
     public boolean delete(int id) {
         try {
+            this.startConnection();
             this.sql = "DELETE FROM Curso WHERE id = ?";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
            

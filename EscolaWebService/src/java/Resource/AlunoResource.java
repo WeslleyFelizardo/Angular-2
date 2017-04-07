@@ -51,7 +51,7 @@ public class AlunoResource {
     public String getAluno() {
         //TODO return proper representation object    
         ArrayList<AlunoModel> lista = new ArrayList<AlunoModel>();
-        this.alunoController = new AlunoController();
+        //this.alunoController = new AlunoController();
         this.cursoController = new CursoController();
         //lista = this.alunoController.getAll();
         AlunoModel aluno1 = new AlunoModel();

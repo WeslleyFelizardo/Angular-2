@@ -15,7 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.OPTIONS;
 import static javax.ws.rs.HttpMethod.POST;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -50,24 +52,18 @@ public class CursoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCurso() {
         //TODO return proper representation object    
-        ArrayList<CursoModel> lista = new ArrayList<CursoModel>();
-        //this.cursoController = new CursoController();
-        //lista = this.cursoController.getAll();
-        CursoModel curso = new CursoModel();
-        curso.setId(1);
-        curso.setNome("Angular 2");
-        curso.setDescricao("Framework da google");
-        curso.setLimiteVagas(20);
-        CursoModel curso2 = new CursoModel();
-        curso2.setId(2);
-        curso2.setNome("Laravel");
-        curso2.setDescricao("Framework PHP");
-        curso2.setLimiteVagas(20);
-        
-        lista.add(curso);
-        lista.add(curso2);
+        this.cursoController = new CursoController();
+
         Gson g = new Gson();
-        return g.toJson(lista);
+        return g.toJson(this.cursoController.getAll());
+    }
+    
+    @Path("{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteCurso(@PathParam("id") Integer id) {
+       //cursoController.delete(id);
+       return "aaaa";
     }
     
     @Path("{id}")
@@ -75,24 +71,11 @@ public class CursoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCursoById(@PathParam("id") Integer id) {
         //CursoModel curso = (CursoModel)cursoController.getById(id);
-        //this.cursoController = new CursoController();
-        CursoModel curso = new CursoModel();
+        this.cursoController = new CursoController();
  
-        curso.setId(1);
-        curso.setNome("Angular 2");
-        curso.setDescricao("Framework da google");
-        curso.setLimiteVagas(20);
-         CursoModel curso2 = new CursoModel();
-        curso2.setId(2);
-        curso2.setNome("Laravel");
-        curso2.setDescricao("Framework PHP");
-        curso2.setLimiteVagas(20);
-        //curso = this.cursoController.getById(id);
+        CursoModel curso = this.cursoController.getById(id);
         Gson g = new Gson();
-        if (id == 1) {
-            return g.toJson(curso);
-        }
-        return g.toJson(curso2);
+        return g.toJson(curso);
     }
     
     @POST
@@ -102,10 +85,9 @@ public class CursoResource {
        Gson g = new Gson();
        CursoModel cursoNovo = new CursoModel();
        cursoNovo = g.fromJson(curso, CursoModel.class);
-       //this.cursoController = new CursoController();
-//       if(this.cursoController.insert(cursoNovo)){
-//           return true;
-//       }
+       this.cursoController = new CursoController();
+       this.cursoController.insert(cursoNovo);
+       
        return g.toJson("Cadastrado com sucesso  ");
     }
     
@@ -114,19 +96,12 @@ public class CursoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String updateCurso(String curso) {
-       //cursoController.update(curso);
        Gson g = new Gson();
-//       CursoModel cursoNovo = new CursoModel();
-//       cursoNovo = g.fromJson(curso, CursoModel.class);
-//       this.cursoController = new CursoController();
+       CursoModel cursoNovo = new CursoModel();
+       cursoNovo = g.fromJson(curso, CursoModel.class);
+       this.cursoController = new CursoController();
+       cursoController.update(cursoNovo);
        return g.toJson("Update with success");
     }
     
-    @Path("d/{id}")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public String deleteCurso(@PathParam("id") Integer id) {
-       //cursoController.delete(id);
-       return "aaaa";
-    }
 }

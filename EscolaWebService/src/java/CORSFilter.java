@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import Controller.Conexao;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -102,7 +103,7 @@ public class CORSFilter implements Filter {
         ((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "X-Request-With, Content-Type, Accept");
         ((HttpServletResponse)response).addHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET");
         //((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "Content-Type, x-xsrf-token");
-        Controller.Conexao.getInstance().getConnection();
+        //System.out.println(Conexao.getInstance().getConnection());
         chain.doFilter(request, response);
     }
 

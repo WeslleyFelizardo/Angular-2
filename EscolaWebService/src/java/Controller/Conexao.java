@@ -18,11 +18,11 @@ import java.sql.DriverManager;
 public class Conexao {
     
     private String ip = "localhost:3306";
-    private String driver = "jdbc:mysql://";
+    private String driver = "com.mysql.jdbc.Driver";
     private String banco = "db_escola";
     private String usuario = "root";
     private String senha = "weslley10";
-    private String url = driver + ip + "/" + banco;
+    private String url = "jdbc:mysql://localhost/db_escola";
     public static Connection con;
 
     private static Conexao instance = null;
@@ -39,6 +39,7 @@ public class Conexao {
     
     public Connection getConnection(){
         try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection(url, usuario, senha);
             System.out.println("Conection");
             return con;

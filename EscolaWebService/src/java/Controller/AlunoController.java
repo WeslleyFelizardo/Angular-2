@@ -1,5 +1,6 @@
 package Controller;
 
+//import javaapplication11.Conexao;
 import Model.AlunoModel;
 import Model.CursoModel;
 import java.sql.Connection;
@@ -28,6 +29,7 @@ public class AlunoController{
     public AlunoController() {
         this.conexao = Conexao.getInstance();
         this.connection = this.conexao.getConnection();
+        System.out.println("This is class Study");
         this.sql = "";
     }
     
