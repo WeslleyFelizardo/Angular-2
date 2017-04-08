@@ -41,7 +41,7 @@ export class AlunoFormularioComponent implements OnInit {
         this.alunoForm.controls['nome'].setValue(aluno.nome);
         this.alunoForm.controls['cpf'].setValue(aluno.cpf);
        // this.alunoForm.controls['curso'].setValue(aluno['Curso'].descricao);
-       this.selectedValue = aluno['Curso'].id;
+        this.selectedValue = aluno['Curso'].id;
   }
 
    ngOnInit() {
@@ -90,7 +90,7 @@ export class AlunoFormularioComponent implements OnInit {
     
     this.alunoUpdate = new Aluno(id, nome, cpf, cursoUpdate);
     
-    this.alunoService.updateAluno(this.alunoUpdate).subscribe(data => this.route.navigate(['/aluno']),
+    this.alunoService.updateAluno(this.alunoUpdate).subscribe(data => {this.route.navigate(['/aluno']); console.log(data);},
                                                               error => console.log(error));
   }
 

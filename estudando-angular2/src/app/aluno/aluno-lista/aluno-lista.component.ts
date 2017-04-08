@@ -81,9 +81,9 @@ export class AlunoListaComponent implements OnInit {
    }
 
    showAluno($event){
-     this.alunoService.getAlunoById(parseInt($event)).subscribe(data => {
-                                                                        this.alunoSelected = data;
-                                                                        this.cursoAlunoSelected = this.alunoSelected['Curso'].nome;
+     this.alunoService.getAlunoById(parseInt($event)).subscribe(data => {//console.log(data);
+                                                                         this.alunoSelected = data;
+                                                                         this.cursoAlunoSelected = this.alunoSelected['Curso'].nome;
                                                                         }, 
                                                                         error => console.log('dsds'));
      //console.log($event);
