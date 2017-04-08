@@ -27,15 +27,18 @@ public class AlunoController{
     private CursoController cursoController;
     
     public AlunoController() {
+        
+    }
+    
+      private void startConnection(){
         this.conexao = Conexao.getInstance();
         this.connection = this.conexao.getConnection();
-        System.out.println("This is class Study");
         this.sql = "";
     }
     
-    
     public boolean insert(AlunoModel entidade) {
         try {
+            this.startConnection();
             AlunoModel aluno = entidade;
             
             this.sql = "INSERT INTO Aluno " +
@@ -43,10 +46,10 @@ public class AlunoController{
                 "values (?,?,?,?)";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setInt(0, aluno.getId());
-            stmt.setString(1, aluno.getNome());
-            stmt.setString(2, aluno.getCpf());
-            stmt.setInt(3, aluno.getCurso().getId());
+            stmt.setInt(1, aluno.getId());
+            stmt.setString(2, aluno.getNome());
+            stmt.setString(3, aluno.getCpf());
+            stmt.setInt(4, aluno.getCurso().getId());
             
             if(stmt.execute()){
                 return true;
@@ -60,16 +63,17 @@ public class AlunoController{
 
     public boolean update(AlunoModel entidade) {
         try {
+            this.startConnection();
             AlunoModel aluno = entidade;
             
             this.sql = "UPDATE Aluno SET " +
-                "nome = ?, cpf = ?, idCurso = ? WHERE id = ? ";
+                "nome = ?, cpf = ?, id_curso = ? WHERE id = ? ";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setString(0, aluno.getNome());
-            stmt.setString(1, aluno.getCpf());
-            stmt.setInt(2, aluno.getCurso().getId());
-            stmt.setInt(3, aluno.getId());
+            stmt.setString(1, aluno.getNome());
+            stmt.setString(2, aluno.getCpf());
+            stmt.setInt(3, aluno.getCurso().getId());
+            stmt.setInt(4, aluno.getId());
             
             if(stmt.executeUpdate() == 1){
                 return true;
@@ -83,6 +87,7 @@ public class AlunoController{
 
     public ArrayList<AlunoModel> getAll() {
         try {
+            this.startConnection();
             this.cursoController = new CursoController();
             ArrayList<AlunoModel> listaAluno = new ArrayList<AlunoModel>();
             this.sql = "SELECT * FROM Aluno";
@@ -97,7 +102,7 @@ public class AlunoController{
                 aluno.setId(resultSet.getInt("id"));
                 aluno.setNome(resultSet.getString("nome"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setCurso(this.cursoController.getById(resultSet.getInt("idCurso")));
+                aluno.setCurso(this.cursoController.getById(resultSet.getInt("id_curso")));
                 
                 listaAluno.add(aluno);
             }
@@ -113,21 +118,22 @@ public class AlunoController{
 
     public AlunoModel getById(int id) {
         try {
+            this.startConnection();
             this.cursoController = new CursoController();
             this.sql = "SELECT * FROM Aluno WHERE id = ?";
             
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setInt(0, id);
+            stmt.setInt(1, id);
             
             ResultSet resultSet = stmt.executeQuery();
             AlunoModel aluno = new AlunoModel();
             
-            if (resultSet.isFirst()) {
+            while (resultSet.next()) {
                 aluno.setId(resultSet.getInt("id"));
                 aluno.setNome(resultSet.getString("nome"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setCurso(cursoController.getById(resultSet.getInt("idCurso")));
+                aluno.setCurso(cursoController.getById(resultSet.getInt("id_curso")));
             }
             
             return aluno;

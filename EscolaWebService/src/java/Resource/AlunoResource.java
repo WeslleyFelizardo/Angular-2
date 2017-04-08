@@ -50,29 +50,11 @@ public class AlunoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAluno() {
         //TODO return proper representation object    
-        ArrayList<AlunoModel> lista = new ArrayList<AlunoModel>();
-        //this.alunoController = new AlunoController();
-        this.cursoController = new CursoController();
-        //lista = this.alunoController.getAll();
-        AlunoModel aluno1 = new AlunoModel();
-        aluno1.setId(1);
-        aluno1.setNome("Weslley");
-        aluno1.setCpf("222.222.222-00");
-        aluno1.setCurso(this.cursoController.getById(2));
-//        AlunoModel aluno2 = new AlunoModel();
-//        aluno2.setId(2);
-//        aluno2.setNome("Lucas");
-//        aluno2.setCpf("222.222.222-00");
-//        aluno2.setId(this.cursoController.getById(2).getId());
-//        AlunoModel aluno3 = new AlunoModel();
-//        aluno3.setId(3);
-//        aluno3.setNome("Cleide");
-//        aluno3.setCpf("222.222.222-00");
-//        aluno3.setIdCurso(this.cursoController.getById(2).getId());
+        ArrayList<AlunoModel> lista;
+        this.alunoController = new AlunoController();
+        //this.cursoController = new CursoController();
+        lista = this.alunoController.getAll();
         
-        lista.add(aluno1);
-        //lista.add(aluno2);
-        //lista.add(aluno3);
         Gson g = new Gson();
         return g.toJson(lista);
     }
@@ -82,21 +64,12 @@ public class AlunoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAlunoById(@PathParam("id") Integer id) {
         //CursoModel curso = (CursoModel)cursoController.getById(id);
-        //this.alunoController = new AlunoController();
-         CursoModel curso = new CursoModel();
- 
-        curso.setId(1);
-        curso.setNome("Angular 2");
-        curso.setDescricao("Framework da google");
-        curso.setLimiteVagas(20);
-        AlunoModel aluno1 = new AlunoModel();
-        aluno1.setId(1);
-        aluno1.setNome("Weslley");
-        aluno1.setCpf("222.222.222-00");
-        aluno1.setCurso(curso);
-        //aluno = this.alunoController.getById(id);
+        this.alunoController = new AlunoController();
+        
+        AlunoModel aluno = this.alunoController.getById(id);
         Gson g = new Gson();
-        return g.toJson(aluno1);
+        
+        return g.toJson(aluno);
     }
     
     @POST
@@ -119,10 +92,13 @@ public class AlunoResource {
     public String updateAluno(String aluno) {
        //cursoController.update(curso);
          Gson g = new Gson();
-//       CursoModel cursoNovo = new CursoModel();
-//       cursoNovo = g.fromJson(curso, CursoModel.class);
-//       this.cursoController = new CursoController();
-       return g.toJson("Update with success");
+         AlunoModel alunoNovo;
+         alunoNovo = g.fromJson(aluno, AlunoModel.class);
+         this.alunoController = new AlunoController();
+         
+         this.alunoController.update(alunoNovo);
+         
+        return g.toJson("Update with success");
     }
     
     @Path("{id}")

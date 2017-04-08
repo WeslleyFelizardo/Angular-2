@@ -88,7 +88,7 @@ public class CursoResource {
        this.cursoController = new CursoController();
        this.cursoController.insert(cursoNovo);
        
-       return g.toJson("Cadastrado com sucesso  ");
+       return g.toJson("Cadastrado com sucesso");
     }
     
     //@Path("{id}")
