@@ -34,6 +34,7 @@ public class CursoController{
         this.sql = "";
     }
     
+
     public boolean insert(CursoModel entidade) {
         try {
             this.startConnection();
@@ -161,4 +162,28 @@ public class CursoController{
         return false;
     }
     
+    public int countAlunosTheCurso(int id){
+        int ammount = 0;
+        try {
+            this.startConnection();
+            this.sql = "select count(id) as ammount from Aluno where id_curso = ?";
+            
+            PreparedStatement stmt = this.connection.prepareStatement(this.sql);
+            
+            stmt.setInt(1, id);
+                    
+            ResultSet result = stmt.executeQuery();
+            
+            while (result.next()){
+                ammount = result.getInt("ammount");
+            }
+        } catch (Exception e) {
+        }
+        finally{
+            this.conexao.closeConnection();
+        }
+        
+        return ammount;
+    }
 }
+

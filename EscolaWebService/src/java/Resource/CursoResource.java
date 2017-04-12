@@ -8,6 +8,7 @@ package Resource;
 import Controller.CursoController;
 import Model.CursoModel;
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonWriter;
 import java.util.ArrayList;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -47,6 +48,15 @@ public class CursoResource {
      * Retrieves representation of an instance of WebService.CursoResource
      * @return an instance of java.lang.String
      */
+    @Path("ammount/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String countAlunosTheCurso(@PathParam("id") Integer id){
+        Gson g = new Gson();
+        this.cursoController = new CursoController();
+        
+        return  g.toJson(cursoController.countAlunosTheCurso(id));
+    }
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -84,7 +94,9 @@ public class CursoResource {
     public String insertCurso(String curso) {
        Gson g = new Gson();
        CursoModel cursoNovo = new CursoModel();
+       
        cursoNovo = g.fromJson(curso, CursoModel.class);
+       
        this.cursoController = new CursoController();
        this.cursoController.insert(cursoNovo);
        

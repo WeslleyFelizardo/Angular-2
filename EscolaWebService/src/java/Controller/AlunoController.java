@@ -41,8 +41,8 @@ public class AlunoController{
             this.startConnection();
             AlunoModel aluno = entidade;
             
-            this.sql = "INSERT INTO Aluno " +
-                "(id,nome,cpf,idCurso) " +
+            this.sql = "INSERT INTO Aluno" +
+                "(id,nome,cpf,id_curso) " +
                 "values (?,?,?,?)";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             

@@ -14,17 +14,10 @@ public class AlunoModel {
     private String nome;
     private String cpf;
     private CursoModel Curso;
-    private Integer idCurso;
 
-    public Integer getIdCurso() {
-        return idCurso;
-    }
-
-    public void setIdCurso(Integer idCurso) {
-        this.idCurso = idCurso;
-    }
-    
-
+//    public AlunoModel() {
+//        this.Curso = new CursoModel();
+//    }
 
     public Integer getId() {
         return id;
@@ -54,9 +47,8 @@ public class AlunoModel {
         return Curso;
     }
 
-    public void setCurso(CursoModel Curso) {
-        this.Curso = Curso;
+    public void setCurso(CursoModel curso) {
+        this.Curso = curso;
     }
-    
     
 }

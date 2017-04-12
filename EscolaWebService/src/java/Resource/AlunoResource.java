@@ -10,6 +10,8 @@ import Controller.CursoController;
 import Model.AlunoModel;
 import Model.CursoModel;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -77,23 +79,28 @@ public class AlunoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String insertAluno(String aluno) {
        Gson g = new Gson();
+       this.alunoController = new AlunoController();
        AlunoModel alunoNovo = new AlunoModel();
+        System.out.println(aluno);
        alunoNovo = g.fromJson(aluno, AlunoModel.class);
        this.alunoController = new AlunoController();
-//       if(this.cursoController.insert(cursoNovo)){
-//           return true;
-//       }
-       return alunoNovo.getNome();
+       
+       if(this.alunoController.insert(alunoNovo)){
+           return g.toJson(true);
+       }
+       return g.toJson(false);
     }
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String updateAluno(String aluno) {
-       //cursoController.update(curso);
+         
          Gson g = new Gson();
+         
          AlunoModel alunoNovo;
          alunoNovo = g.fromJson(aluno, AlunoModel.class);
+         
          this.alunoController = new AlunoController();
          
          this.alunoController.update(alunoNovo);
@@ -103,6 +110,7 @@ public class AlunoResource {
     
     @Path("{id}")
     @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteAluno(@PathParam("id") Integer id) {
        //cursoController.delete(id);
