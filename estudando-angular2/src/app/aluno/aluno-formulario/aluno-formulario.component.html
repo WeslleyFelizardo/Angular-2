@@ -15,7 +15,7 @@
   <div class="form-group" [ngClass]="{'has-danger': alunoForm.controls.cpf.errors && alunoForm.controls.cpf.touched}">
     <input type="text" formControlName="cpf" class="form-control" id="cpf" name="cpf" placeholder="Cpf">
   </div>
-  
+    <p mascara>aaaaaa</p>
   <div class="form-group" [ngClass]="{'has-danger': alunoForm.controls.curso.errors && alunoForm.controls.curso.touched}">
     <select [(ngModel)]="selectedValue" class="form-control" formControlName="curso" name="cursos" id="curso">
       <option [value]="-1" >Selecione o curso...</option>

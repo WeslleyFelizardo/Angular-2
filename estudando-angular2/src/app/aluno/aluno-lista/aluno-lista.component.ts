@@ -31,19 +31,14 @@ export class AlunoListaComponent implements OnInit {
                                            error =>  console.log(error));
    }
 
-  //  a(data){
-  //     this.alunos = data;
-  //  }
 
   loadingAlunos(){
-   this.alunoService.getAll().subscribe(data => this.alunos  = data,
+   this.alunoService.getAll().subscribe(data => {this.alunos = data;
+                                                this.totalRegistros = this.alunos.length;
+                                                this.paginar(1);
+  },
    error => console.log(error)); 
-   //this.getAllCursos();
    
-   // this.totalRegistros = this.alunos.length;
-    //this.paginar(1);
-    
-    //this.alunoPaginados = this.alunos;
   }
 
   ngOnInit() {
@@ -51,9 +46,6 @@ export class AlunoListaComponent implements OnInit {
    
   }
 
-  // testeAluno(){
-  //    this.getAllAlunos();
-  // }
 
   fechar(){
     this.router.navigate(['/aluno']);
@@ -81,9 +73,10 @@ export class AlunoListaComponent implements OnInit {
    }
 
    showAluno($event){
-     this.alunoService.getAlunoById(parseInt($event)).subscribe(data => {//console.log(data);
+     this.alunoService.getAlunoById(parseInt($event)).subscribe(data => {console.log(data);
                                                                          this.alunoSelected = data;
                                                                          this.cursoAlunoSelected = this.alunoSelected['Curso'].nome;
+                                                                         
                                                                         }, 
                                                                         error => console.log('dsds'));
      //console.log($event);

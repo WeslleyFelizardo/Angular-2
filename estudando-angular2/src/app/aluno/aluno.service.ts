@@ -55,12 +55,17 @@ export class AlunoService {
   
   }
   
-  insertAluno(aluno: any){
-   
+  insertAluno(aluno: Aluno): Observable<Boolean>{
+      let params = JSON.stringify(aluno);
+
+      return this.http.post(this.urlResource, params, this.utilHttp.headers())
+             .map(this.utilHttp.extrairDados)
+             .catch(this.utilHttp.processarErros);
   }
 
   updateAluno(aluno: Aluno): Observable<String>{
       let params = JSON.stringify(aluno);
+      
       return this.http.put(this.urlResource, params, this.utilHttp.headers())
              .map(this.utilHttp.extrairDados)
              .catch(this.utilHttp.processarErros);

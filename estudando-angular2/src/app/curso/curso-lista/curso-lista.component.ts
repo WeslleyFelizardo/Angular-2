@@ -11,35 +11,46 @@ import { Curso } from './../Curso';
 export class CursoListaComponent implements OnInit {
 
   //teste: Curso;
-  qtdPorPagina: number = 1;
-  cursosPaginados: Curso[] = [];
+  qtdPorPagina: number = 3;
+  cursosPaginados: Curso[];
   cursos: Curso[] = [];
   showButtonUpdate = new EventEmitter<boolean>();
   cursoSelected: Curso = new Curso();
   idForDelete: number;
-  totalRegistros: number = 2;
+  totalRegistros: number;
+  ammount: String;
   //delete: boolean = false;
   constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private router: Router) {
     
    }
 
   loadingCursos(){
-     this.cursoService.getAll().subscribe( data => this.cursos = data,
+     this.cursoService.getAll().subscribe( data => {this.cursos = data;
+                                          
+                                          this.totalRegistros = this.cursos.length;
+                                          this.paginar(1);
+                                          },
                                             error => console.log(error)); 
-     //this.paginar(1);
-     //this.totalRegistros = 2;//this.cursos.length;
-     //this.cursosPaginados = ;
-     //console.log('listando'); 
+     
   }
 
   ngOnInit() { 
       this.loadingCursos();
-  } 
+      
+  }
+
+   ammountEachCurso(id: number){
+       
+     //this.cursoService.returnAmmountAlunosByCurso(id).subscribe(data => this.ammount = data);
+     //b.remove;
+     //return id;
+     //console.log(this.ammount);
+   }
 
   showCurso($event){
-    alert($event);
+    //alert($event);
     this.cursoService.getById(parseInt($event)).subscribe(data =>  this.cursoSelected = data);
-    // alert(this.cursoSelected);
+    //alert(this.cursoSelected);
   }
 
   fechar(){
@@ -56,14 +67,14 @@ export class CursoListaComponent implements OnInit {
    }
 
    paginar($event){
-     this.cursosPaginados = [];
-     let paginaAtual = $event - 1;
-     for(let i = (paginaAtual * this.qtdPorPagina) ; i < (paginaAtual * this.qtdPorPagina + this.qtdPorPagina) ; i++){
+       this.cursosPaginados = [];
+       let paginaAtual = $event - 1;
+       for(let i = (paginaAtual * this.qtdPorPagina) ; i < (paginaAtual * this.qtdPorPagina + this.qtdPorPagina) ; i++){
        if(i >= this.cursos.length){
          break;
        }
        this.cursosPaginados.push(this.cursos[i]);
-      // console.log(this.cursosPaginados[i]);
+       //alert(this.cursos.length);
      }
    }
 }

@@ -18,12 +18,12 @@
   <th>Limite de Vagas</th>
   <th>Qtd de alunos</th>
   <th><a class="btn btn-info" [routerLink]="['/curso/novo']" [queryParams]="{ope: 'novo'}">Novo</a></th>
-  <tr *ngFor="let curso of cursos">
+  <tr *ngFor="let curso of cursosPaginados">
     <td>{{ curso.id }}</td>
     <td>{{ curso.nome }}</td>
     <td>{{ curso.descricao }}</td>
     <td>{{ curso.limiteVagas }}</td>
-    <td>2</td>
+    <td></td>
     <td>
       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" (click)="showCurso(curso.id)">Visualizar</button>
       <a [routerLink]="['/curso', curso.id, 'edit']" [queryParams]="{ope: 'editar'}"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
@@ -32,12 +32,12 @@
   </tr>  
 </table>
 
-<!--<paginacao *ngIf="cursos.length > 0" 
+<paginacao *ngIf="cursos.length > 0" 
 	[qtdPorPagina]="qtdPorPagina" 
 	[totalRegistros]="totalRegistros"
 	[qtdAdjacentes]="1"
 	(paginaSelecionada)="paginar($event)"> 
-</paginacao>-->
+</paginacao>
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

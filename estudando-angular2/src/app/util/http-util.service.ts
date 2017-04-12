@@ -24,9 +24,14 @@ export class HttpUtilService {
     	return options;
 	}
 
-	extrairDados(response: Response): String {
+	extrairDados(response: Response): string {
     	let data = response.json();
-    	return data || {};
+		return data || {};
+  	}
+
+	extrairDados2(response: Response): string {
+    	let data = response.toString();
+		return data;
   	}
 
   	processarErros(erro: any) {

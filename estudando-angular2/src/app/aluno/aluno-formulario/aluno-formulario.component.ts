@@ -5,6 +5,8 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { AlunoService } from './../aluno.service';
 import { CursoService } from './../../curso/curso.service';
 import { Component, OnInit } from '@angular/core';
+//import { MascaraDirective } from './../diretivas/mascara.directive';
+import { MascaraDirective } from './../../diretivas/mascara.directive';
 
 @Component({
   selector: 'aluno-formulario',
@@ -41,7 +43,7 @@ export class AlunoFormularioComponent implements OnInit {
         this.alunoForm.controls['nome'].setValue(aluno.nome);
         this.alunoForm.controls['cpf'].setValue(aluno.cpf);
        // this.alunoForm.controls['curso'].setValue(aluno['Curso'].descricao);
-        this.selectedValue = aluno['Curso'].id;
+        this.selectedValue = aluno['Curso'].id.toString();
   }
 
    ngOnInit() {
@@ -73,11 +75,14 @@ export class AlunoFormularioComponent implements OnInit {
 
   insertAluno(){
     let newCurso = this.cursos.find(course => course.id == this.alunoForm.controls['curso'].value);
-    //console.log(newCurso);
+    
     this.aluno = new Aluno(parseInt(this.alunoForm.controls['codigo'].value),  this.alunoForm.controls['nome'].value,  this.alunoForm.controls['cpf'].value,
     newCurso); 
-
-    console.log(this.aluno);
+    //console.log(this.aluno);
+    this.alunoService.insertAluno(this.aluno).subscribe(data => {
+                                                        console.log(data);
+                                                        this.route.navigate(['/aluno']);},
+                                                        error => console.log('Erro'));
    }
 
   updateAluno(){

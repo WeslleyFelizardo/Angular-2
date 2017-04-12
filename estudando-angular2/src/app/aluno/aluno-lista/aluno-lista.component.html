@@ -16,7 +16,7 @@
   <th>CPF</th>
   <th>Curso</th>
   <th><a class="btn btn-info" [routerLink]="['/aluno/novo']" [queryParams]="{ope: 'novo'}">Novo</a></th>
-  <tr *ngFor="let aluno of alunos">
+  <tr *ngFor="let aluno of alunoPaginados">
     <td>{{ aluno.id }}</td>
     <td>{{ aluno.nome }}</td>
     <td>{{ aluno.cpf }}</td>
@@ -29,12 +29,12 @@
   </tr>  
 </table>
 
-<!--<paginacao *ngIf="alunos.length > 0" 
-	[qtdPorPagina]="3" 
+<paginacao *ngIf="alunos.length > 0" 
+	[qtdPorPagina]="qtdPorPagina" 
 	[totalRegistros]="alunos.length"
 	[qtdAdjacentes]="1"
 	(paginaSelecionada)="paginar($event)"> 
-</paginacao>-->
+</paginacao>
 
 
 <!-- Modal -->

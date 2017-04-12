@@ -57,4 +57,11 @@ export class CursoService {
           .catch(this.utilHttp.processarErros);
   }
 
+  returnAmmountAlunosByCurso(id: number): Observable<String>{
+    //console.log(this.urlResource + '/ammount/' + id);
+    return this.http.get(this.urlResource + '/ammount/' + id, this.utilHttp.headers())
+           .map(this.utilHttp.extrairDados)
+           .catch(this.utilHttp.processarErros);
+  }
+
 }
