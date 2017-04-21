@@ -52,13 +52,17 @@ export class AlunoListaComponent implements OnInit {
   }
 
    deleteAluno(){
-        this.alunoService.deleteAluno(this.idForDelete);
+        this.alunoService.deleteAluno(this.idForDelete).subscribe(data => { console.log(data);
         this.router.navigate(['/aluno']);
         this.loadingAlunos();
+        },
+        error => console.log(error))  ;
+        
    }
 
    onClickExcluir(id: number){
     this.idForDelete = id;
+    
    }
 
    paginar($event){

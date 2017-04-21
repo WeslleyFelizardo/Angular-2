@@ -48,14 +48,32 @@ public class CursoResource {
      * Retrieves representation of an instance of WebService.CursoResource
      * @return an instance of java.lang.String
      */
+    @Path("/delete/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteCurso(@PathParam("id") int id) {
+        Gson g = new Gson();
+        this.cursoController = new CursoController();
+       
+        if (this.cursoController.countAlunosTheCurso(id) <= 0) {
+            if (this.cursoController.delete(id)) {
+                return g.toJson(true);
+            } else {
+                return g.toJson(false);
+            }
+        } else {
+            return g.toJson("Este curso ainda existe alunos matriculados");
+        }
+    }
+
     @Path("ammount/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String countAlunosTheCurso(@PathParam("id") Integer id){
         Gson g = new Gson();
         this.cursoController = new CursoController();
-        
-        return  g.toJson(cursoController.countAlunosTheCurso(id));
+        //System.out.println(cursoController.countAlunosTheCurso(2));
+        return  "{\"ammount\":"+ this.cursoController.countAlunosTheCurso(id)+"}";
     }
     
     @GET
@@ -68,14 +86,7 @@ public class CursoResource {
         return g.toJson(this.cursoController.getAll());
     }
     
-    @Path("{id}")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public String deleteCurso(@PathParam("id") Integer id) {
-       //cursoController.delete(id);
-       return "aaaa";
-    }
-    
+
     @Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

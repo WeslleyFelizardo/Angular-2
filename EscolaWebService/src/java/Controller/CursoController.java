@@ -41,14 +41,13 @@ public class CursoController{
             CursoModel curso = entidade;
             
             this.sql = "INSERT INTO Curso " +
-                "(id,nome,descricao,limiteVagas) " +
-                "values (?,?,?,?)";
+                "(nome,descricao,limiteVagas) " +
+                "values (?,?,?)";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setInt(1, curso.getId());
-            stmt.setString(2, curso.getNome());
-            stmt.setString(3, curso.getDescricao());
-            stmt.setInt(4, curso.getLimiteVagas());
+            stmt.setString(1, curso.getNome());
+            stmt.setString(2, curso.getDescricao());
+            stmt.setInt(3, curso.getLimiteVagas());
             
             if(stmt.execute()){
                 return true;
@@ -145,21 +144,24 @@ public class CursoController{
     }
 
     public boolean delete(int id) {
+        boolean retorno = false;
         try {
             this.startConnection();
             this.sql = "DELETE FROM Curso WHERE id = ?";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
            
-            stmt.setInt(0, id);
+            stmt.setInt(1, id);
             
-            if(stmt.execute()){
-                return true;
+            if(stmt.executeUpdate() == 1){
+                retorno = true;
+            } else {
+                retorno = false;
             }
         } catch (Exception ex) {
         }finally{
             this.conexao.closeConnection();
         }
-        return false;
+        return retorno;
     }
     
     public int countAlunosTheCurso(int id){

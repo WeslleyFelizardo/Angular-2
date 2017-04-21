@@ -52,7 +52,7 @@ export class CursoService {
 	}
 
   deleteCurso(id: number) : Observable<String>{
-    return this.http.delete(this.urlResource + '/' + id, this.utilHttp.headers())
+    return this.http.get(this.urlResource + '/delete/' + id, this.utilHttp.headers())
           .map(this.utilHttp.extrairDados)
           .catch(this.utilHttp.processarErros);
   }

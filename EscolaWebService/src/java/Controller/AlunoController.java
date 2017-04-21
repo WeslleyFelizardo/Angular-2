@@ -42,14 +42,14 @@ public class AlunoController{
             AlunoModel aluno = entidade;
             
             this.sql = "INSERT INTO Aluno" +
-                "(id,nome,cpf,id_curso) " +
-                "values (?,?,?,?)";
+                "(id_curso, nome, cpf) " +
+                "values (?,?,?)";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
             
-            stmt.setInt(1, aluno.getId());
+            //stmt.setInt(1, aluno.getId());
+            stmt.setInt(1, aluno.getCurso().getId());
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getCpf());
-            stmt.setInt(4, aluno.getCurso().getId());
             
             if(stmt.execute()){
                 return true;
@@ -146,20 +146,25 @@ public class AlunoController{
     }
 
     public boolean delete(int id) {
+        boolean retorno = false;
         try {
+            this.startConnection();
             this.sql = "DELETE FROM Aluno WHERE id = ?";
             PreparedStatement stmt = this.connection.prepareStatement(this.sql);
-           
-            stmt.setInt(0, id);
-            
-            if(stmt.execute()){
-                return true;
+
+            stmt.setInt(1, id);
+
+            if (stmt.executeUpdate() == 1) {
+                retorno = true;
+            } else {
+                retorno = false;
             }
         } catch (Exception ex) {
-        }finally{
+            System.out.println(ex.getMessage());
+        } finally {
             this.conexao.closeConnection();
         }
-        return false;
+        return retorno;
     }
     
 }

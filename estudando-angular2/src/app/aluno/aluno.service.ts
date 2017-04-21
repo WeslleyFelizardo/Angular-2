@@ -52,7 +52,9 @@ export class AlunoService {
   }
 
   deleteAluno(id: any){
-  
+      return this.http.get(this.urlResource + '/delete/' + id, this.utilHttp.headers())
+             .map(this.utilHttp.extrairDados)
+             .catch(this.utilHttp.processarErros);
   }
   
   insertAluno(aluno: Aluno): Observable<Boolean>{

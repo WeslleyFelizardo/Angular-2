@@ -22,7 +22,7 @@ export class AlunoFormularioComponent implements OnInit {
   private cursos: Curso[] = [];
   private alunoUpdate: Aluno;
   selectedValue = "-1";
-
+ 
     constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private alunoService: AlunoService , private route: Router
     , private fb: FormBuilder) {
     //this.cursos = this.cursoService.getCursos();
@@ -31,7 +31,7 @@ export class AlunoFormularioComponent implements OnInit {
 
    buildForm(fb: FormBuilder){
     this.alunoForm = fb.group({
-      codigo: ['', Validators.required],
+      codigo: [''],
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
       curso: ['', Validators.required] 
@@ -80,7 +80,7 @@ export class AlunoFormularioComponent implements OnInit {
     newCurso); 
     //console.log(this.aluno);
     this.alunoService.insertAluno(this.aluno).subscribe(data => {
-                                                        console.log(data);
+                                                        alert("Cadastrado com sucesso!");
                                                         this.route.navigate(['/aluno']);},
                                                         error => console.log('Erro'));
    }
@@ -95,7 +95,7 @@ export class AlunoFormularioComponent implements OnInit {
     
     this.alunoUpdate = new Aluno(id, nome, cpf, cursoUpdate);
     
-    this.alunoService.updateAluno(this.alunoUpdate).subscribe(data => {this.route.navigate(['/aluno']); console.log(data);},
+    this.alunoService.updateAluno(this.alunoUpdate).subscribe(data => {this.route.navigate(['/aluno']); alert("Atualizado com sucesso!");},
                                                               error => console.log(error));
   }
 

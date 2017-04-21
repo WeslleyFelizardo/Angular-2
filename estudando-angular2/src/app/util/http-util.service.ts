@@ -24,15 +24,12 @@ export class HttpUtilService {
     	return options;
 	}
 
-	extrairDados(response: Response): string {
+	extrairDados(response: Response) {
     	let data = response.json();
 		return data || {};
   	}
 
-	extrairDados2(response: Response): string {
-    	let data = response.toString();
-		return data;
-  	}
+	
 
   	processarErros(erro: any) {
 	    return Observable.throw('Erro acessando servidor remoto.');

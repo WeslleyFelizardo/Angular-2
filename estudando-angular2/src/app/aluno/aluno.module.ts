@@ -1,3 +1,5 @@
+import { MascaraDirective } from './../diretivas/mascara.directive';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginacaoModule } from './../paginacao/paginacao.module';
 import { AlunoService } from './aluno.service';
@@ -17,7 +19,7 @@ import { AlunoListaComponent } from './aluno-lista/aluno-lista.component';
     PaginacaoModule,
     AlunoRoutingModule
   ],
-  declarations: [AlunoComponent, AlunoFormularioComponent, AlunoListaComponent],
+  declarations: [AlunoComponent, AlunoFormularioComponent, AlunoListaComponent, MascaraDirective],
   exports: [],
   providers: [AlunoService]
 })

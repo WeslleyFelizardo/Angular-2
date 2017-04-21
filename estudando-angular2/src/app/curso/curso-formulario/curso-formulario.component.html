@@ -2,8 +2,8 @@
   <h1 class="text-center">Formulario de cursos</h1>
 	<hr />
 <form [formGroup]="cursoForm">
-  <div class="form-group"  [ngClass]="{'has-danger': cursoForm.controls.codigo.errors && cursoForm.controls.codigo.touched}">
-        <input  id="codigo" name="codigo" type="text" class="form-control" formControlName="codigo" placeholder="Codigo" />
+  <div class="form-group">
+        <input disabled id="codigo" name="codigo" type="text" class="form-control" formControlName="codigo" placeholder="Codigo" />
         
     </div>
     <div class="form-group" [ngClass]="{'has-danger': cursoForm.controls.nome.errors && cursoForm.controls.nome.touched}">

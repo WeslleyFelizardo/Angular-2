@@ -10,7 +10,7 @@ import { Curso } from './../Curso';
 })
 export class CursoListaComponent implements OnInit {
 
-  //teste: Curso;
+
   qtdPorPagina: number = 3;
   cursosPaginados: Curso[];
   cursos: Curso[] = [];
@@ -19,7 +19,8 @@ export class CursoListaComponent implements OnInit {
   idForDelete: number;
   totalRegistros: number;
   ammount: String;
-  //delete: boolean = false;
+  show: boolean = true;
+  
   constructor(private cursoService: CursoService, private activatedRoute: ActivatedRoute, private router: Router) {
     
    }
@@ -29,6 +30,7 @@ export class CursoListaComponent implements OnInit {
                                           
                                           this.totalRegistros = this.cursos.length;
                                           this.paginar(1);
+                                          //this.ammountEachCurso(2);
                                           },
                                             error => console.log(error)); 
      
@@ -41,10 +43,12 @@ export class CursoListaComponent implements OnInit {
 
    ammountEachCurso(id: number){
        
-     //this.cursoService.returnAmmountAlunosByCurso(id).subscribe(data => this.ammount = data);
-     //b.remove;
-     //return id;
-     //console.log(this.ammount);
+     this.cursoService.returnAmmountAlunosByCurso(id).subscribe(data => { 
+        
+       this.ammount = data['ammount'];
+      // alert(this.ammount);
+       });
+    
    }
 
   showCurso($event){
@@ -53,13 +57,24 @@ export class CursoListaComponent implements OnInit {
     //alert(this.cursoSelected);
   }
 
+  teste(){
+    this.show = !this.show;
+  }
+
   fechar(){
     this.router.navigate(['/curso']);
   }
 
-   deleteCurso(){
-        this.cursoService.deleteCurso(this.idForDelete).subscribe(data => this.router.navigate(['/curso']),
-                                                                  error => console.log(error));
+  deleteCurso(){
+        this.cursoService.deleteCurso(this.idForDelete).subscribe(data => {
+          if(data == "true")
+            this.loadingCursos();
+          else{
+            alert("Não foi possivel excluir este curso, ainda existem alunos matriculados!");
+            
+          }
+        },
+        error => console.log(error));
    }
 
    onClickExcluir(id: number){
@@ -74,7 +89,9 @@ export class CursoListaComponent implements OnInit {
          break;
        }
        this.cursosPaginados.push(this.cursos[i]);
-       //alert(this.cursos.length);
+       //console.log(this.cursos[i].id);
+       //this.ammountEachCurso(this.cursos[i].id);
+       //this.ammountEachCurso(this.cursos[i].id);
      }
    }
 }

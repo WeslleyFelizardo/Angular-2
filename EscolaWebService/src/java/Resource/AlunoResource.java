@@ -48,6 +48,21 @@ public class AlunoResource {
      * Retrieves representation of an instance of WebService.CursoResource
      * @return an instance of java.lang.String
      */
+    
+    @Path("/delete/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteCurso(@PathParam("id") int id) {
+        Gson g = new Gson();
+        this.alunoController = new AlunoController();
+       
+        if (this.alunoController.delete(id)) {
+            return g.toJson(true);
+        } else {
+            return g.toJson(false);
+        }
+    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getAluno() {
@@ -81,7 +96,7 @@ public class AlunoResource {
        Gson g = new Gson();
        this.alunoController = new AlunoController();
        AlunoModel alunoNovo = new AlunoModel();
-        System.out.println(aluno);
+        
        alunoNovo = g.fromJson(aluno, AlunoModel.class);
        this.alunoController = new AlunoController();
        
