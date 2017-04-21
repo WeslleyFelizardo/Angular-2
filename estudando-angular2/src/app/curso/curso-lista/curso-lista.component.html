@@ -16,14 +16,14 @@
   <th>Nome</th>
   <th>Descrição</th>
   <th>Limite de Vagas</th>
-  <th>Qtd de alunos</th>
+  <!--<th>Qtd de alunos</th>-->
   <th><a class="btn btn-info" [routerLink]="['/curso/novo']" [queryParams]="{ope: 'novo'}">Novo</a></th>
   <tr *ngFor="let curso of cursosPaginados">
     <td>{{ curso.id }}</td>
     <td>{{ curso.nome }}</td>
     <td>{{ curso.descricao }}</td>
     <td>{{ curso.limiteVagas }}</td>
-    <td></td>
+    <!--<td></td>-->
     <td>
       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" (click)="showCurso(curso.id)">Visualizar</button>
       <a [routerLink]="['/curso', curso.id, 'edit']" [queryParams]="{ope: 'editar'}"><button type="button" class="btn btn-success btn-sm">Editar</button></a>

@@ -84,7 +84,8 @@ export class CursoFormularioComponent implements OnInit {
       this.curso.descricao = this.cursoForm.controls['descricao'].value;
       this.curso.limiteVagas = parseInt(this.cursoForm.controls['limiteDeVagas'].value);
 
-      this.cursoService.insertCurso(this.curso).subscribe(data =>{ this.route.navigate(['/curso']); alert("Cadastrado com sucesso!");},
+      this.cursoService.insertCurso(this.curso).subscribe(data =>{ this.route.navigate(['/curso']);
+                                                          alert("Cadastrado com sucesso!");},
                                                           error => console.log('erro'));
   }
 

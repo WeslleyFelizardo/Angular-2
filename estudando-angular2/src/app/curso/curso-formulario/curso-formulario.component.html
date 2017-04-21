@@ -13,7 +13,7 @@
         <textarea  name="descricao" class="form-control"id="descricao" formControlName="descricao" placeholder="Descrição" rows="3"></textarea>
     </div>
     <div class="form-group" [ngClass]="{'has-danger': cursoForm.controls.limiteDeVagas.errors && cursoForm.controls.limiteDeVagas.touched}">
-        <input name="limiteDeVagas" type="text" class="form-control" id="limiteDeVagas" formControlName="limiteDeVagas" placeholder="Limite de Vagas">
+        <input name="limiteDeVagas" type="number" min="0" max="40" class="form-control" id="limiteDeVagas" formControlName="limiteDeVagas" placeholder="Limite de Vagas">
     </div>
   <div class="text-center">
     <button  *ngIf="insert" type="button" class="btn btn-primary" [disabled]="!cursoForm.valid" (click)="insertCurso()">Cadastrar</button>
