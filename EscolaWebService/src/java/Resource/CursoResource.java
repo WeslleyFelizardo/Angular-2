@@ -57,9 +57,9 @@ public class CursoResource {
        
         if (this.cursoController.countAlunosTheCurso(id) <= 0) {
             if (this.cursoController.delete(id)) {
-                return g.toJson(true);
+                return g.toJson("true");
             } else {
-                return g.toJson(false);
+                return g.toJson("false");
             }
         } else {
             return g.toJson("Este curso ainda existe alunos matriculados");
