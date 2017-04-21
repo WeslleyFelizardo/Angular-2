@@ -3,7 +3,7 @@ Angular 2 com bootstrap, back-end java com mysql
 
 Não foi objetivo do estudando se preocupar com regras de negocios, nem em validações.
 
-O objetivo do estudando da ferramenta angular foi direcionado para os seus conceitos como:
+O objetivo do estudo da ferramenta angular foi direcionado para os seus conceitos como:
 
 1 - Componentes
 2 - Directivas
